@@ -1,0 +1,44 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "windows-x64",
+      "displayName": "Windows x64 (Visual Studio 2022, OpenSSL from vcpkg)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build/windows-x64",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "cacheVariables": { "VCPKG_TARGET_TRIPLET": "x64-windows" },
+      "condition": { "type": "equals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    },
+    {
+      "name": "windows-x86",
+      "displayName": "Windows x86 (Visual Studio 2022, OpenSSL from vcpkg)",
+      "inherits": "windows-x64",
+      "architecture": "Win32",
+      "binaryDir": "${sourceDir}/build/windows-x86",
+      "cacheVariables": { "VCPKG_TARGET_TRIPLET": "x86-windows" }
+    },
+    {
+      "name": "linux",
+      "displayName": "Linux / macOS (system OpenSSL)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/linux",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" },
+      "condition": { "type": "notEquals", "lhs": "${hostSystemName}", "rhs": "Windows" }
+    }
+  ],
+  "buildPresets": [
+    { "name": "windows-x64-release", "configurePreset": "windows-x64", "configuration": "Release" },
+    { "name": "windows-x64-debug",   "configurePreset": "windows-x64", "configuration": "Debug" },
+    { "name": "windows-x86-release", "configurePreset": "windows-x86", "configuration": "Release" },
+    { "name": "linux",               "configurePreset": "linux" }
+  ],
+  "testPresets": [
+    { "name": "windows-x64-release", "configurePreset": "windows-x64", "configuration": "Release", "output": { "outputOnFailure": true } },
+    { "name": "windows-x64-debug",   "configurePreset": "windows-x64", "configuration": "Debug",   "output": { "outputOnFailure": true } },
+    { "name": "windows-x86-release", "configurePreset": "windows-x86", "configuration": "Release", "output": { "outputOnFailure": true } },
+    { "name": "linux",               "configurePreset": "linux",       "output": { "outputOnFailure": true } }
+  ]
+}

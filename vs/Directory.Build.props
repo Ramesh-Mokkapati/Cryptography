@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared settings for the Visual Studio projects in this folder (not for the CMake-generated
+     projects under build\, which get OpenSSL through the vcpkg CMake toolchain instead). -->
+<Project>
+  <PropertyGroup>
+    <!-- vcpkg: VCPKG_ROOT if set, otherwise the copy that ships with Visual Studio 2022. -->
+    <VcpkgRoot Condition="'$(VcpkgRoot)' == '' and '$(VCPKG_ROOT)' != ''">$(VCPKG_ROOT)</VcpkgRoot>
+    <VcpkgRoot Condition="'$(VcpkgRoot)' == ''">$(VsInstallRoot)\VC\vcpkg</VcpkgRoot>
+    <VcpkgRoot>$([MSBuild]::EnsureTrailingSlash('$(VcpkgRoot)'))</VcpkgRoot>
+
+    <!-- Manifest mode: OpenSSL is declared in ..\vcpkg.json and installed into ..\vcpkg_installed\ on build. -->
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgManifestRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</VcpkgManifestRoot>
+
+    <CryptoRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\'))</CryptoRoot>
+  </PropertyGroup>
+
+  <Import Project="$(VcpkgRoot)scripts\buildsystems\msbuild\vcpkg.props"
+          Condition="Exists('$(VcpkgRoot)scripts\buildsystems\msbuild\vcpkg.props')" />
+</Project>

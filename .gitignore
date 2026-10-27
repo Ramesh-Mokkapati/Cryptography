@@ -1,0 +1,37 @@
+# CMake build trees (presets write to build/<preset>)
+build/
+out/
+cmake-build-*/
+CMakeUserPresets.json
+
+# Visual Studio solution output (OutDir / IntDir in vs/Common.props)
+bin/
+obj/
+
+# vcpkg manifest-mode output when configured outside build/
+vcpkg_installed/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Compiled objects and libraries
+*.o
+*.obj
+*.a
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.exe
+*.dll
+
+# Never commit keys generated while experimenting
+*.pem
+*.key
+
+# OS noise
+Thumbs.db
+.DS_Store

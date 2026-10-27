@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "crypto-wrapper",
+  "version": "1.1.0",
+  "description": "C++11 static cryptography library over OpenSSL. vcpkg supplies OpenSSL on Windows; Linux uses the system libssl-dev.",
+  "dependencies": [
+    "openssl"
+  ],
+  "builtin-baseline": "5363acb796e576328288fae60c25304e227e9839"
+}
